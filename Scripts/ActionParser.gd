@@ -12,6 +12,10 @@ class Spell_word:
 	var expected_word: String
 	var word_distance: int
 	var word_type: found_type
+	func get_expected_word() -> String:
+		return expected_word
+	func get_word_distance() -> int:
+		return word_distance
 	func get_word_type() -> found_type:
 		return word_type
 	func _init(word: String, distance: int, type: found_type) -> void:
@@ -19,7 +23,8 @@ class Spell_word:
 		word_distance = distance
 		word_type = type
 
-func _on_line_edit_text_submitted(new_text: String) -> void:
+func _on_input_field_text_submitted(new_text: String) -> void:
+	print(new_text)
 	
 	input_field.clear()
 	
@@ -40,13 +45,16 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 			current_element_count = 0
 		if found_word.get_word_type() == found_type.ELEMENT:
 			if current_element_count >= 2:
+				found_word_type = found_type.ILLEGAL
+				current_element_count = 0
 				continue
 			current_element_count += 1
 		legit_words_found.append(found_word)
 		found_word_type = found_word.get_word_type()
+	for i in legit_words_found:
+		print(i.expected_word)
 		
 	#send legit_words_found to Spell Logic Compiler which is not yet implemented 
-		#work on illegal syntax handling
 		
 func word_parse(word: String, word_type: found_type) -> Spell_word:
 	match word_type:
@@ -74,7 +82,10 @@ func find_best_match(word: String, dictionary: Dictionary, word_type: found_type
 		var distance = Levenshtein.distance(word, dict_word)
 		if distance == 0:
 			return Spell_word.new(dict_word, 0, word_type)
+		if distance > 3 :
+			continue
 		if distance < closest_distance:
 			closest_distance = distance
 			closest_word = dict_word
 	return Spell_word.new(closest_word, closest_distance, word_type)
+	
