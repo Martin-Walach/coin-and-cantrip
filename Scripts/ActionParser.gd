@@ -1,27 +1,12 @@
 extends RichTextLabel
 
+signal spell_parsed(parsed_words: Array)
 
 @onready
 var input_field = get_node("../InputField")
-
 var action_lib = preload("res://libs/ActionLib.gd").new()
-
-enum found_type {INIT, FORM, ELEMENT, AUGMENT, ILLEGAL}
-
-class Spell_word:
-	var expected_word: String
-	var word_distance: int
-	var word_type: found_type
-	func get_expected_word() -> String:
-		return expected_word
-	func get_word_distance() -> int:
-		return word_distance
-	func get_word_type() -> found_type:
-		return word_type
-	func _init(word: String, distance: int, type: found_type) -> void:
-		expected_word = word
-		word_distance = distance
-		word_type = type
+const found_type = ActionLib.SpellWordType
+const Spell_word = ActionLib.Spell_word
 
 func _on_input_field_text_submitted(new_text: String) -> void:
 	print(new_text)
@@ -53,8 +38,7 @@ func _on_input_field_text_submitted(new_text: String) -> void:
 		found_word_type = found_word.get_word_type()
 	for i in legit_words_found:
 		print(i.expected_word)
-		
-	#send legit_words_found to Spell Logic Compiler which is not yet implemented 
+	spell_parsed.emit(legit_words_found)
 		
 func word_parse(word: String, word_type: found_type) -> Spell_word:
 	match word_type:
