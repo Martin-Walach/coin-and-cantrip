@@ -46,9 +46,7 @@ fit_content = true
 scroll_following = true
 vertical_alignment = 2
 
-[node name="SpellCompiler" type="Node" parent="." unique_id=400362278]
+[node name="Node" type="Node" parent="." unique_id=400362278]
 script = ExtResource("2_vghbg")
 
-[connection signal="spell_parsed" from="InputField" to="SpellCompiler" method="compile_spell"]
 [connection signal="text_submitted" from="InputField" to="InputField" method="_on_input_field_text_submitted"]
-[connection signal="spell_compiled" from="SpellCompiler" to="SpellCompiler" method="resolve_spell"]

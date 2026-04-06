@@ -1,4 +1,4 @@
-extends RichTextLabel
+extends Node
 
 class_name SpellCompiler
 
@@ -6,11 +6,12 @@ class_name SpellCompiler
 var action_lib = preload("res://libs/ActionLib.gd").new()
 const found_type = ActionLib.SpellWordType
 const Spell_word = ActionLib.Spell_word
+signal spell_compiled(spell: Spell)
 
 class Cantrip:
 	var form: String = ""
 	var form_distance: int = 64
-	var elements: Array[Dictionary] = []
+	var elements: Array[Array] = []
 	var augments: Array[Dictionary] = []
 	
 	func _init(form_word: String = "", form_dist: int = 64) -> void:
@@ -22,7 +23,7 @@ class Cantrip:
 		
 	func add_augment(word: String, distance: int) -> void:
 		augments.append({"word": word, "distance": distance})
-		
+
 class Spell:
 	var cantrips: Array[Cantrip] = []
 	
@@ -30,7 +31,7 @@ class Spell:
 		if cantrip.form != "":
 			cantrips.append(cantrip)
 	
-func compile_spell(legal_words: Array[Spell_word]) -> Spell:
+func compile_spell(legal_words: Array) -> void:
 	var spell = Spell.new()
 	var current_cantrip: Cantrip = null
 	
@@ -57,8 +58,10 @@ func compile_spell(legal_words: Array[Spell_word]) -> Spell:
 				)
 	if current_cantrip != null:
 		spell.add_cantrip(current_cantrip)
-	return spell
-	
+	spell_compiled.emit(spell)
 
-func _on_input_field_empty(_is_empty: bool) -> void:
-	self.append_text("no text input received\n")
+func resolve_spell(spell: Spell) -> void:
+	for cantrip in spell:
+		pass
+		
+		#I wouldn't want to clutter the scene tree with too many functions, so how about the compiler and resolver were in the same script and we just called the whole step as compilation? In that case, I would need to send and receive a signal within the same script and node. Is this a legit thing to do, or do people dislike this approach?
