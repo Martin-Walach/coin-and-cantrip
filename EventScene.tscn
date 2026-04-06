@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://clx5iupyavvjt"]
 
 [ext_resource type="Script" uid="uid://dkpqyjw5rfs3r" path="res://Scripts/ActionParser.gd" id="1_twh0q"]
+[ext_resource type="Script" uid="uid://bp3s5og8atx0" path="res://Scripts/SpellCompiler.gd" id="2_vghbg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_822dq"]
 
@@ -31,6 +32,7 @@ context_menu_enabled = false
 emoji_menu_enabled = false
 flat = true
 caret_mid_grapheme = true
+script = ExtResource("1_twh0q")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=919969359]
 layout_mode = 0
@@ -43,6 +45,8 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_y2xbv")
 fit_content = true
 scroll_following = true
 vertical_alignment = 2
-script = ExtResource("1_twh0q")
+script = ExtResource("2_vghbg")
 
-[connection signal="text_submitted" from="InputField" to="RichTextLabel" method="_on_input_field_text_submitted"]
+[connection signal="empty_input" from="InputField" to="RichTextLabel" method="_on_input_field_empty"]
+[connection signal="spell_parsed" from="InputField" to="RichTextLabel" method="compile_spell"]
+[connection signal="text_submitted" from="InputField" to="InputField" method="_on_input_field_text_submitted"]

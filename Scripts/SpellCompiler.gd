@@ -1,8 +1,6 @@
-extends Node
+extends RichTextLabel
 
-class_name  SpellCompiler
-
-signal spell_compiled(spell: Spell)
+class_name SpellCompiler
 
 @onready
 var action_lib = preload("res://libs/ActionLib.gd").new()
@@ -61,4 +59,6 @@ func compile_spell(legal_words: Array[Spell_word]) -> Spell:
 		spell.add_cantrip(current_cantrip)
 	return spell
 	
-	
+
+func _on_input_field_empty(_is_empty: bool) -> void:
+	self.append_text("no text input received\n")

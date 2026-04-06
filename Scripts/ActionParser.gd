@@ -1,9 +1,11 @@
-extends RichTextLabel
+extends LineEdit
+
+class_name ActionParser
 
 signal spell_parsed(parsed_words: Array)
+signal empty_input(_is_empty: bool)
 
 @onready
-var input_field = get_node("../InputField")
 var action_lib = preload("res://libs/ActionLib.gd").new()
 const found_type = ActionLib.SpellWordType
 const Spell_word = ActionLib.Spell_word
@@ -11,14 +13,12 @@ const Spell_word = ActionLib.Spell_word
 func _on_input_field_text_submitted(new_text: String) -> void:
 	print(new_text)
 	
-	input_field.clear()
+	self.clear()
 	
 	var words = new_text.strip_edges().to_lower().split(" ", false)
 	if words.is_empty():
-		self.append_text("no text found")
+		empty_input.emit(true)
 		return
-		
-	self.newline()
 	
 	var current_element_count = 0
 	var found_word_type = found_type.INIT
