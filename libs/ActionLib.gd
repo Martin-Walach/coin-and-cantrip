@@ -1,14 +1,12 @@
-extends Node
-
 class_name ActionLib
 
-var forms = {"ray":true, "cone":true, "shield":true}
-var elements = {"fire":true, "water":true, "earth":true, "wind":true}
-var augments = {"piercing":true, "amplified":true, "swift":true}
+var forms = {"ray":10, "cone":4, "shield":20}
+var elements = {"fire":5, "water":2, "earth":4, "wind":3}
+var augments = {"piercing":0.4, "amplified":1.2, "swift":0.7}
 
 var actions = {"attack":true, "run":true, "item":true, "defend":true, "examine":true}
 
-enum SpellWordType {INIT, FORM, ELEMENT, AUGMENT, ILLEGAL}
+enum SPELL_WORD_TYPE {INIT, FORM, ELEMENT, AUGMENT, ILLEGAL}
 
 func get_forms() -> Dictionary:
 	return forms
@@ -19,17 +17,56 @@ func get_elements() -> Dictionary:
 func get_augments() -> Dictionary:
 	return augments
 
-class Spell_word:
+class SpellWord:
 	var expected_word: String
 	var word_distance: int
-	var word_type: SpellWordType
+	var spellwordtype: SPELL_WORD_TYPE
 	func get_expected_word() -> String:
 		return expected_word
 	func get_word_distance() -> int:
 		return word_distance
-	func get_word_type() -> SpellWordType:
-		return word_type
-	func _init(word: String, distance: int, type: SpellWordType) -> void:
+	func get_word_type() -> SPELL_WORD_TYPE:
+		return spellwordtype
+	func _init(word: String, distance: int, type: SPELL_WORD_TYPE) -> void:
 		expected_word = word
 		word_distance = distance
-		word_type = type
+		spellwordtype = type
+
+class Cantrip:
+	var form: String = ""
+	var form_distance: int = 64
+	var elements: Array[ElementWord] = []
+	
+	func _init(form_word: String = "", form_dist: int = 64) -> void:
+		form = form_word
+		form_distance = form_dist
+		
+	func add_element(element: ElementWord) -> void:
+		elements.append(element)
+		
+	class ElementWord:
+		var element_word: String
+		var element_distance: int
+		var augments: Array[AugmentWord] = []
+		
+		func _init(given_word: String = "", given_dist: int = 64) -> void:
+			element_word = given_word
+			element_distance = given_dist
+		
+		func add_augment(augment_word: AugmentWord) -> void:
+			augments.append(augment_word)
+			
+	class AugmentWord:
+		var augment_word: String
+		var augment_distance: int
+		
+		func _init(given_word: String = "", given_dist: int = 64) -> void:
+			augment_word = given_word
+			augment_distance = given_dist
+
+class Spell:
+	var cantrips: Array[Cantrip] = []
+	
+	func add_cantrip(cantrip: Cantrip) -> void:
+		if cantrip.form != "":
+			cantrips.append(cantrip)

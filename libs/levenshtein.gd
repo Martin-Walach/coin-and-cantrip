@@ -1,5 +1,3 @@
-extends Node
-
 class_name Levenshtein
 
 static func distance(a: String, b: String) -> int:
@@ -7,9 +5,9 @@ static func distance(a: String, b: String) -> int:
 	var len_b := b.length()
 
 	if len_a == 0:
-		return -1
+		return 128
 	if len_b == 0:
-		return -1
+		return 128
 
 	var matrix := []
 	for i in range(len_a + 1):
