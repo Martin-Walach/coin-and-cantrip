@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://clx5iupyavvjt"]
 
+[ext_resource type="Script" uid="uid://b02jhfuo8sj21" path="res://Scripts/EventManager.gd" id="1_bpxga"]
 [ext_resource type="Script" uid="uid://dkpqyjw5rfs3r" path="res://Scripts/ActionParser.gd" id="1_twh0q"]
 [ext_resource type="Script" uid="uid://dpwcrhixxlhkf" path="res://Scripts/EventLogController.gd" id="2_0hofs"]
 [ext_resource type="Script" uid="uid://bp3s5og8atx0" path="res://Scripts/SpellCompiler.gd" id="2_vghbg"]
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bpxga")
 
 [node name="InputField" type="LineEdit" parent="." unique_id=66823561]
 layout_mode = 0
