@@ -21,3 +21,8 @@ func take_damage(damage: int) -> void:
 	entity_health -= damage
 	if entity_health <= 0:
 		entity_destroyed.emit(self)
+
+func take_action(allies: Array[Entity], enemies: Array[Entity]):
+	print("Entity takes action")
+	if !enemies.is_empty():
+		enemies.get(0).take_damage(10)
