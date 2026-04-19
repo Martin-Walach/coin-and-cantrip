@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://b02jhfuo8sj21" path="res://Scripts/EventManager.gd" id="1_bpxga"]
 [ext_resource type="Script" uid="uid://dkpqyjw5rfs3r" path="res://Scripts/ActionParser.gd" id="1_twh0q"]
 [ext_resource type="Script" uid="uid://dpwcrhixxlhkf" path="res://Scripts/EventLogController.gd" id="2_0hofs"]
-[ext_resource type="Script" uid="uid://bp3s5og8atx0" path="res://Scripts/SpellCompiler.gd" id="2_vghbg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_822dq"]
 
@@ -52,10 +51,6 @@ scroll_following = true
 vertical_alignment = 2
 script = ExtResource("2_0hofs")
 
-[node name="SpellCompiler" type="Node" parent="." unique_id=400362278]
-script = ExtResource("2_vghbg")
-
 [connection signal="empty_input" from="InputField" to="EventLog" method="_on_input_field_empty_input"]
-[connection signal="spell_parsed" from="InputField" to="SpellCompiler" method="compile_spell"]
+[connection signal="spell_parsed" from="InputField" to="." method="_on_input_field_spell_parsed"]
 [connection signal="text_submitted" from="InputField" to="InputField" method="_on_input_field_text_submitted"]
-[connection signal="spells_resolved" from="SpellCompiler" to="EventLog" method="_on_spell_compiler_spells_resolved"]

@@ -1,8 +1,10 @@
 extends RichTextLabel
 
+class_name EventLogController
+
 const ResolvedSpell = SpellLib.ResolvedSpell
 
-func _on_spell_compiler_spells_resolved(resolved_spells: Array[ResolvedSpell]) -> void:
+func on_spells_resolved(resolved_spells: Array[ResolvedSpell]) -> void:
 	var final_string: String = ""
 	for spell in resolved_spells:
 		print(spell.damage)
@@ -13,4 +15,8 @@ func _on_spell_compiler_spells_resolved(resolved_spells: Array[ResolvedSpell]) -
 
 func _on_input_field_empty_input(_is_empty: bool) -> void:
 	self.append_text("no input received")
+	self.newline()
+
+func encounter_end() -> void:
+	self.append_text("END")
 	self.newline()

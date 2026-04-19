@@ -2,8 +2,10 @@ extends Control
 
 class_name EventManager
 
-var spell_compiler
-var input_field
+var spell_compiler: SpellCompiler
+var input_field: ActionParser
+var event_log: EventLogController
+var encounter: EncounterManager
 
 enum EVENT_STATE {NARRATIVE, ENCOUNTER, SHOP, RESOLVED}
 
@@ -12,7 +14,8 @@ var enemies: Array[Entity] = []
 var current_state: EVENT_STATE = EVENT_STATE.ENCOUNTER
 
 func _ready() -> void:
-	spell_compiler = $SpellCompiler
+	spell_compiler = preload("res://Scripts/SpellCompiler.gd").new()
+	event_log = $EventLog
 	input_field = $InputField
 	var player = Player.new(100, "Player", 50, 12, [])
 	player.input_field = input_field
@@ -23,15 +26,19 @@ func _ready() -> void:
 		print("  Ally: ", entity, " speed: ", entity.entity_speed)
 	for entity in enemies:
 		print("  Enemy: ", entity, " speed: ", entity.entity_speed)
-	var encouter = EncounterManager.new(allies, enemies)
+	encounter = EncounterManager.new(allies, enemies)
 	match current_state:
 		EVENT_STATE.ENCOUNTER:
-			add_child(encouter)
-			spell_compiler.spells_resolved.connect(encouter.apply_spell_damage)
-			encouter.encounter_resolved.connect(self.end_encounter)
-			encouter.start_encounter()
+			add_child(encounter)
+			encounter.encounter_resolved.connect(self.end_encounter)
+			encounter.start_encounter()
 	
 
-func end_encounter(encounter: EncounterManager) -> void:
-	spell_compiler.spells_resolved.disconnect(encounter.apply_spell_damage)
+func end_encounter() -> void:
 	encounter.queue_free()
+	event_log.encounter_end()
+
+func _on_input_field_spell_parsed(parsed_words: Array[ActionLib.SpellWord]) -> void:
+	var compiled_spells: Array[SpellLib.ResolvedSpell] = spell_compiler.compile_spell(parsed_words)
+	event_log.on_spells_resolved(compiled_spells)
+	encounter.apply_spell_damage(compiled_spells)

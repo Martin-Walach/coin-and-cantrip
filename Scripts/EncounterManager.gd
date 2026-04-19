@@ -9,7 +9,7 @@ var allies: Array[Entity] = []
 var enemies: Array[Entity] = []
 var current_player_target: Entity
 
-signal encounter_resolved(encounter: EncounterManager)
+signal encounter_resolved()
 
 func _init(given_allies: Array[Entity], given_enemies: Array[Entity]) -> void:
 	allies = given_allies
@@ -59,7 +59,7 @@ func end_turn(current: Entity, ap_cost: int) -> void:
 		remove_child(entity)
 	to_be_destroyed.clear()
 	if check_encounter_end():
-		encounter_resolved.emit(self)
+		encounter_resolved.emit()
 		return
 	start_turn()
 	
@@ -71,7 +71,7 @@ func on_entity_destroyed(entity: Entity) -> void:
 		current_player_target = null
 
 func apply_spell_damage(resolved_spells: Array[SpellLib.ResolvedSpell]) -> void:
-	print("apply damaged called")
+	print("apply damage called")
 	if current_turn_entity is Player:
 		current_turn_entity.input_field.editable = false
 	if current_player_target == null:
@@ -84,7 +84,7 @@ func select_first_entity(entities: Array[Entity]) -> Entity:
 	print("fist entity called")
 	for entity in entities:
 		if entity.entity_health > 0:
-			return	entity
+			return entity
 	return null
 
 func check_encounter_end() -> bool:

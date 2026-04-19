@@ -22,7 +22,7 @@ func _on_input_field_text_submitted(new_text: String) -> void:
 	
 	var current_element_count = 0
 	var found_word_type = spellwordtype.INIT
-	var legit_words_found = Array()
+	var legit_words_found: Array[SpellWord] = []
 	var found_word = SpellWord.new("", 64, spellwordtype.INIT)
 	for word in words:
 		found_word = word_parse(word, found_word_type)

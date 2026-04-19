@@ -1,8 +1,7 @@
-extends Node
+extends RefCounted
 
 class_name SpellCompiler
 
-@onready
 var action_lib = preload("uid://dk3eb6nmhvnv5").new()
 var spell_lib = preload("uid://bdipnsc8kkwxm").new()
 const spellwordtype = ActionLib.SPELL_WORD_TYPE
@@ -10,13 +9,12 @@ const SpellWord = ActionLib.SpellWord
 const Spell = ActionLib.Spell
 const Cantrip = ActionLib.Cantrip
 const ResolvedSpell = SpellLib.ResolvedSpell
-signal spells_resolved(resolved_spells: Array[ResolvedSpell])
 
-func compile_spell(legal_words: Array) -> void:
+func compile_spell(legal_words: Array) -> Array[ResolvedSpell]:
 	var spell = Spell.new()
 	var current_cantrip: Cantrip = null
 	var current_element: Cantrip.ElementWord = null
-	var resolved_spells = Array()
+	var resolved_spells: Array[ResolvedSpell] = []
 	
 	for cantrip_word in legal_words:
 		match cantrip_word.get_word_type():
@@ -46,7 +44,7 @@ func compile_spell(legal_words: Array) -> void:
 	if current_cantrip != null:
 		spell.add_cantrip(current_cantrip)
 	resolved_spells = resolve_spell(spell)
-	spells_resolved.emit(resolved_spells)
+	return resolved_spells
 
 func resolve_spell(spell: Spell) -> Array[ResolvedSpell]:
 	var current_resolved_spells: Array[ResolvedSpell]
