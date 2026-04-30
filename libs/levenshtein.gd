@@ -1,5 +1,9 @@
 class_name Levenshtein
 
+## Takes two [String]s as parameters and returns an [int] representing their distance
+## between each other.
+##
+## If either of the input [String]s have length of 0, the function returns 128.
 static func distance(a: String, b: String) -> int:
 	var len_a := a.length()
 	var len_b := b.length()

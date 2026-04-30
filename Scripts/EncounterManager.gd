@@ -10,6 +10,7 @@ var enemies: Array[Entity] = []
 var current_player_target: Entity
 
 signal encounter_resolved()
+signal turn_status(status_message: String)
 
 func _init(given_allies: Array[Entity], given_enemies: Array[Entity]) -> void:
 	allies = given_allies
@@ -43,7 +44,7 @@ func get_next_entity() -> Entity:
 func start_turn() -> void:
 	print("turn start")
 	current_turn_entity = get_next_entity()
-	debug_print()
+	encounter_status_message()
 	var elapsed = timeline[current_turn_entity]
 	for entity in timeline.keys():
 		timeline[entity] -= elapsed
@@ -92,11 +93,12 @@ func check_encounter_end() -> bool:
 	var living_enemies = enemies.filter(func(e: Entity): return e.entity_health > 0)
 	return living_allies.is_empty() or living_enemies.is_empty()
 
-func debug_print() -> void:
-	print("--- TURN: %s ---" % current_turn_entity.entity_name)
+func encounter_status_message() -> void:
+	var status_message: String = "--- TURN: %s ---\n" % current_turn_entity.entity_name
 	for entity in timeline.keys():
-		print("  %s | HP: %d | Time: %d" % [
+		status_message += ("  %s | HP: %d | Time: %d\n" % [
 			entity.entity_name, 
 			entity.entity_health, 
 			timeline[entity]
 			])
+	turn_status.emit(status_message)

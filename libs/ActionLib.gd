@@ -1,8 +1,8 @@
 class_name ActionLib
 
-var forms = {"ray":10, "cone":4, "shield":20}
-var elements = {"fire":5, "water":2, "earth":4, "wind":3}
-var augments = {"piercing":0.4, "amplified":1.2, "swift":0.7}
+const forms = {"ray":10, "cone":4, "shield":20}
+const elements = {"fire":5, "water":2, "earth":4, "wind":3}
+const augments = {"piercing":0.4, "amplified":1.2, "swift":0.7}
 
 var actions = {"attack":true, "run":true, "item":true, "defend":true, "examine":true}
 

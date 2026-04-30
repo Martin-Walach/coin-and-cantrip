@@ -19,7 +19,9 @@ func _ready() -> void:
 	input_field = $InputField
 	var player = Player.new(100, "Player", 50, 12, [])
 	player.input_field = input_field
+	player.action_log.connect(event_log.on_enemy_action)
 	var goblin = MockEnemy.new(30, "Goblin", 0, 8, 5)
+	goblin.action_log.connect(event_log.on_enemy_action)
 	allies.append(player)
 	enemies.append(goblin)
 	for entity in allies:
@@ -31,6 +33,7 @@ func _ready() -> void:
 		EVENT_STATE.ENCOUNTER:
 			add_child(encounter)
 			encounter.encounter_resolved.connect(self.end_encounter)
+			encounter.turn_status.connect(event_log.on_turn_status)
 			encounter.start_encounter()
 	
 

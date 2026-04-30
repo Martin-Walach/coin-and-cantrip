@@ -10,7 +10,10 @@ const Spell = ActionLib.Spell
 const Cantrip = ActionLib.Cantrip
 const ResolvedSpell = SpellLib.ResolvedSpell
 
-func compile_spell(legal_words: Array) -> Array[ResolvedSpell]:
+## Takes an [Array] of [ActionLib.SpellWord] ([param legal_words]) from [ActionParser].[br]
+## Depending on [enum ActionLib.SPELL_WORD_TYPE] of each [ActionLib.SpellWord] it aseembles [ActionLib.Cantrip]s
+## based on syntax and adds them to an [Array] of [ActionLib.Cantrip]s known as a [ActionLib.Spell]
+func compile_spell(legal_words: Array[SpellWord]) -> Array[ResolvedSpell]:
 	var spell = Spell.new()
 	var current_cantrip: Cantrip = null
 	var current_element: Cantrip.ElementWord = null
@@ -46,6 +49,8 @@ func compile_spell(legal_words: Array) -> Array[ResolvedSpell]:
 	resolved_spells = resolve_spell(spell)
 	return resolved_spells
 
+## Takes a compiled [ActionLib.Spell] and begins resolving the effects of each [ActionLib.Cantrip]
+## based on:[br][member ActionLib.Cantrip.form],[br][member ActionLib.Cantrip.elements] and[br][member ActionLib.Cantrip.elemnts.augments]
 func resolve_spell(spell: Spell) -> Array[ResolvedSpell]:
 	var current_resolved_spells: Array[ResolvedSpell]
 	for cantrip in spell.cantrips:
