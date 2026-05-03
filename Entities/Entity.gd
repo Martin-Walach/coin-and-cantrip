@@ -6,20 +6,22 @@ var entity_health: int
 var entity_name: String
 var entity_mana: int
 var entity_speed: int
+var entity_defense: int
 
 signal entity_destroyed(entity: Entity)
 signal action_log(name: String, damage: int, target: String)
 
-func _init(given_health: int, given_name: String, given_mana: int, given_speed: int) -> void:
+func _init(given_health: int, given_name: String, given_mana: int, given_speed: int, given_defense: int) -> void:
 	entity_health = given_health
 	entity_name = given_name
 	entity_mana = given_mana
 	entity_speed = given_speed
+	entity_defense = given_defense
 
-func take_damage(damage: int) -> void:
+func take_damage(base_damage: int, elemental_damage: int) -> void:
 	if entity_health <= 0:
 		return
-	entity_health -= damage
+	entity_health -= base_damage + (elemental_damage - self.entity_defense)
 	if entity_health <= 0:
 		entity_destroyed.emit(self)
 

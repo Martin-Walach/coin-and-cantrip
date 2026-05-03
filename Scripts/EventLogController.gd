@@ -7,7 +7,7 @@ const ResolvedSpell = SpellLib.ResolvedSpell
 func on_spells_resolved(resolved_spells: Array[ResolvedSpell]) -> void:
 	var final_string: String = ""
 	for spell in resolved_spells:
-		final_string = "The Player deals {0} damage\n".format([spell.damage])
+		final_string = "The Player deals {0} damage\n".format([spell.base_damage + spell.elemental_damage])
 		self.append_text(final_string)
 		self.newline()
 

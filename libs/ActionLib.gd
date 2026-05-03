@@ -33,11 +33,11 @@ class SpellWord:
 		spellwordtype = type
 
 class Cantrip:
-	var form: String = ""
-	var form_distance: int = 64
-	var elements: Array[ElementWord] = []
+	var form: String
+	var form_distance: int
+	var elements: Array[ElementWord]
 	
-	func _init(form_word: String = "", form_dist: int = 64) -> void:
+	func _init(form_word: String, form_dist: int) -> void:
 		form = form_word
 		form_distance = form_dist
 		
@@ -49,7 +49,7 @@ class Cantrip:
 		var element_distance: int
 		var augments: Array[AugmentWord] = []
 		
-		func _init(given_word: String = "", given_dist: int = 64) -> void:
+		func _init(given_word: String, given_dist: int) -> void:
 			element_word = given_word
 			element_distance = given_dist
 		
@@ -60,7 +60,7 @@ class Cantrip:
 		var augment_word: String
 		var augment_distance: int
 		
-		func _init(given_word: String = "", given_dist: int = 64) -> void:
+		func _init(given_word: String, given_dist: int) -> void:
 			augment_word = given_word
 			augment_distance = given_dist
 
@@ -68,5 +68,5 @@ class Spell:
 	var cantrips: Array[Cantrip] = []
 	
 	func add_cantrip(cantrip: Cantrip) -> void:
-		if cantrip.form != "":
+		if cantrip.form != null:
 			cantrips.append(cantrip)

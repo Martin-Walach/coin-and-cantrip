@@ -78,7 +78,7 @@ func apply_spell_damage(resolved_spells: Array[SpellLib.ResolvedSpell]) -> void:
 	if current_player_target == null:
 		current_player_target = select_first_entity(enemies)
 	for spell in resolved_spells:
-		current_player_target.take_damage(spell.damage)
+		current_player_target.take_damage(spell.base_damage, spell.elemental_damage)
 	end_turn(current_turn_entity, 20)
 
 func select_first_entity(entities: Array[Entity]) -> Entity:

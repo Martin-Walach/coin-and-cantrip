@@ -2,7 +2,6 @@ extends RefCounted
 
 class_name SpellCompiler
 
-var action_lib = preload("uid://dk3eb6nmhvnv5").new()
 var spell_lib = preload("uid://bdipnsc8kkwxm").new()
 const spellwordtype = ActionLib.SPELL_WORD_TYPE
 const SpellWord = ActionLib.SpellWord
@@ -13,11 +12,10 @@ const ResolvedSpell = SpellLib.ResolvedSpell
 ## Takes an [Array] of [ActionLib.SpellWord] ([param legal_words]) from [ActionParser].[br]
 ## Depending on [enum ActionLib.SPELL_WORD_TYPE] of each [ActionLib.SpellWord] it aseembles [ActionLib.Cantrip]s
 ## based on syntax and adds them to an [Array] of [ActionLib.Cantrip]s known as a [ActionLib.Spell]
-func compile_spell(legal_words: Array[SpellWord]) -> Array[ResolvedSpell]:
+func compile_spell(legal_words: Array[SpellWord]) -> Spell:
 	var spell = Spell.new()
 	var current_cantrip: Cantrip = null
 	var current_element: Cantrip.ElementWord = null
-	var resolved_spells: Array[ResolvedSpell] = []
 	
 	for cantrip_word in legal_words:
 		match cantrip_word.get_word_type():
@@ -46,16 +44,16 @@ func compile_spell(legal_words: Array[SpellWord]) -> Array[ResolvedSpell]:
 		current_cantrip.add_element(current_element)
 	if current_cantrip != null:
 		spell.add_cantrip(current_cantrip)
-	resolved_spells = resolve_spell(spell)
-	return resolved_spells
+	return spell
 
 ## Takes a compiled [ActionLib.Spell] and begins resolving the effects of each [ActionLib.Cantrip]
 ## based on:[br][member ActionLib.Cantrip.form],[br][member ActionLib.Cantrip.elements] and[br][member ActionLib.Cantrip.elemnts.augments]
+## 
 func resolve_spell(spell: Spell) -> Array[ResolvedSpell]:
-	var current_resolved_spells: Array[ResolvedSpell]
+	var current_resolved_cantrips: Array[ResolvedSpell]
 	for cantrip in spell.cantrips:
 		match cantrip.form:
 			"ray":
-				current_resolved_spells.append(spell_lib.resolve_ray(cantrip))
+				current_resolved_cantrips.append(spell_lib.resolve_ray(cantrip))
 				
-	return current_resolved_spells
+	return current_resolved_cantrips

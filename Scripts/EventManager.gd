@@ -17,7 +17,7 @@ func _ready() -> void:
 	spell_compiler = preload("res://Scripts/SpellCompiler.gd").new()
 	event_log = $EventLog
 	input_field = $InputField
-	var player = Player.new(100, "Player", 50, 12, [])
+	var player = Player.new(100, "Player", 50, 12, 5, [])
 	player.input_field = input_field
 	player.action_log.connect(event_log.on_enemy_action)
 	var goblin = MockEnemy.new(30, "Goblin", 0, 8, 5)
@@ -42,6 +42,7 @@ func end_encounter() -> void:
 	event_log.encounter_end()
 
 func _on_input_field_spell_parsed(parsed_words: Array[ActionLib.SpellWord]) -> void:
-	var compiled_spells: Array[SpellLib.ResolvedSpell] = spell_compiler.compile_spell(parsed_words)
-	event_log.on_spells_resolved(compiled_spells)
-	encounter.apply_spell_damage(compiled_spells)
+	var compiled_spells: ActionLib.Spell = spell_compiler.compile_spell(parsed_words)
+	var resolved_spells: Array[SpellLib.ResolvedSpell] = spell_compiler.resolve_spell(compiled_spells)
+	event_log.on_spells_resolved(resolved_spells)
+	encounter.apply_spell_damage(resolved_spells)
