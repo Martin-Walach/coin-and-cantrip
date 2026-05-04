@@ -86,10 +86,10 @@ func find_best_match(word: String, dictionary: Dictionary, word_type: ActionLib.
 	var closest_word = ""
 	
 	for dict_word in dictionary.keys():
-		var distance = Levenshtein.distance(word, dict_word)
+		var distance: float = Levenshtein.distance(word, dict_word)
 		if distance == 0:
 			return SpellWord.new(dict_word, 0, word_type)
-		if distance > 3 :
+		if distance / word.length() > 0.5 :
 			continue
 		if distance < closest_distance:
 			closest_distance = distance

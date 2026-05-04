@@ -4,7 +4,12 @@
 [ext_resource type="Script" uid="uid://dkpqyjw5rfs3r" path="res://Scripts/ActionParser.gd" id="1_twh0q"]
 [ext_resource type="Script" uid="uid://dpwcrhixxlhkf" path="res://Scripts/EventLogController.gd" id="2_0hofs"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_822dq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hofs"]
+bg_color = Color(0.8217887, 0.8217887, 0.8217885, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y2xbv"]
 
@@ -18,6 +23,7 @@ grow_vertical = 2
 script = ExtResource("1_bpxga")
 
 [node name="InputField" type="LineEdit" parent="." unique_id=66823561]
+top_level = true
 layout_mode = 0
 offset_left = 92.0
 offset_top = 573.0
@@ -25,9 +31,9 @@ offset_right = 337.0
 offset_bottom = 604.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.17641911, 0.17641908, 0.17641908, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_822dq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0hofs")
 placeholder_text = "over here"
 max_length = 128
 editable = false
@@ -46,8 +52,9 @@ offset_right = 679.0
 offset_bottom = 532.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_y2xbv")
-fit_content = true
+scroll_active = false
 scroll_following = true
+scroll_following_visible_characters = true
 vertical_alignment = 2
 script = ExtResource("2_0hofs")
 

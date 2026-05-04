@@ -11,7 +11,7 @@ func on_spells_resolved(resolved_spells: Array[ResolvedSpell]) -> void:
 		self.append_text(final_string)
 		self.newline()
 
-func on_enemy_action(given_name: String, damage: int, target: String) -> void:
+func on_entity_action(given_name: String, damage: int, target: String) -> void:
 	self.append_text("{0} deals {1} damage to {2}\n".format([given_name, str(damage), target]))
 	self.newline()
 

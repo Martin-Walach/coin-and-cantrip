@@ -29,5 +29,5 @@ func take_action(_allies: Array[Entity], enemies: Array[Entity]):
 	var entity_damage: int = 10
 	print("Entity takes action")
 	if !enemies.is_empty():
-		enemies.get(0).take_damage(entity_damage)
+		enemies.get(0).take_damage(entity_damage, entity_damage)
 		action_log.emit(self.entity_name, entity_damage, enemies.get(0).entity_name)

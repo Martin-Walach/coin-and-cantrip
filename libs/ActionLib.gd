@@ -68,5 +68,5 @@ class Spell:
 	var cantrips: Array[Cantrip] = []
 	
 	func add_cantrip(cantrip: Cantrip) -> void:
-		if cantrip.form != null:
+		if cantrip.form != "":
 			cantrips.append(cantrip)
