@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FormData" format=3 uid="uid://ceegkhys2rn4v"]
+
+[ext_resource type="Script" uid="uid://76spx1ghmdrc" path="res://Resources/Spells/FormData.gd" id="1_sha2m"]
+
+[resource]
+script = ExtResource("1_sha2m")
+form_name = "ray"
+base_power = 10
+mana_cost = 10
+ap_cost = 20
+metadata/_custom_type_script = "uid://76spx1ghmdrc"

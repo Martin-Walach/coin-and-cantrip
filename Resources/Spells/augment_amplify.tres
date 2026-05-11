@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AugmentData" format=3 uid="uid://cuv2e68nd3waj"]
+
+[ext_resource type="Resource" uid="uid://ljdn7u87l3la" path="res://Resources/Spells/AugmentEffects/augment_effect_amplify.tres" id="1_tfetv"]
+[ext_resource type="Script" uid="uid://c604h1yqpou03" path="res://Resources/Spells/AugmentData.gd" id="2_ke2hc"]
+
+[resource]
+script = ExtResource("2_ke2hc")
+augment_name = "amplify"
+effect = ExtResource("1_tfetv")
+metadata/_custom_type_script = "uid://c604h1yqpou03"

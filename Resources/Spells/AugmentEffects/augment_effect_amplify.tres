@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AmplifyEffect" format=3 uid="uid://ljdn7u87l3la"]
+
+[ext_resource type="Script" uid="uid://d0ox83wt7tq2m" path="res://Resources/Spells/AugmentEffects/AugmentEffectAmplifyData.gd" id="1_l1gbb"]
+
+[resource]
+script = ExtResource("1_l1gbb")
+damage_mult = 1.2
+mana_mult = 1.3
+ap_mult = 1.2
+metadata/_custom_type_script = "uid://d0ox83wt7tq2m"

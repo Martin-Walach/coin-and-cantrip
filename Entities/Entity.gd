@@ -21,7 +21,7 @@ func _init(given_health: int, given_name: String, given_mana: int, given_speed: 
 func take_damage(base_damage: int, elemental_damage: int) -> void:
 	if entity_health <= 0:
 		return
-	entity_health -= base_damage + (elemental_damage - self.entity_defense)
+	entity_health -= base_damage + maxi(elemental_damage - self.entity_defense, 0)
 	if entity_health <= 0:
 		entity_destroyed.emit(self)
 

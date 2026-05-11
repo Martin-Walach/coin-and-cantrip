@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ElementData" format=3 uid="uid://dxn846h8i2vq8"]
+
+[ext_resource type="Script" uid="uid://cs10yp354cyh1" path="res://Resources/Spells/ElementData.gd" id="1_3x1gs"]
+[ext_resource type="Resource" uid="uid://cv2382jga2dbe" path="res://Resources/Spells/element_fire.tres" id="2_l6hx8"]
+
+[resource]
+script = ExtResource("1_3x1gs")
+element_name = "water"
+base_damage = 7
+mana_cost = 6
+ap_cost = 15
+strengths = Array[ExtResource("1_3x1gs")]([ExtResource("2_l6hx8")])
+metadata/_custom_type_script = "uid://cs10yp354cyh1"
